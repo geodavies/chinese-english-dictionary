@@ -1,6 +1,8 @@
 package uk.ac.aston.dc2310.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author George Davies
@@ -10,23 +12,35 @@ public class Definitions {
 
     private List<Definition> definitions;
 
+    public Definitions() {
+        definitions = new ArrayList<>();
+    }
+
     public void addDefinition(Definition definition) {
         definitions.add(definition);
     }
 
-    public Definition getDefinitionByPinYin(String pinYin) {
-        // TODO: Implement me
-        return null;
+    public List<Definition> getDefinitionsByTraditionalPrefix(String prefix) {
+        return this.definitions.parallelStream()
+                .filter(definition -> definition.getTraditionalChinese().startsWith(prefix))
+                .collect(Collectors.toList());
     }
 
-    public Definition getDefinitionsByEnglish(String english) {
-        // TODO: Implement me
-        return null;
+    public List<Definition> getDefinitionsByPinYin(String pinYin) {
+        return this.definitions.parallelStream()
+                .filter(definition -> definition.getPinYin().equalsIgnoreCase(pinYin))
+                .collect(Collectors.toList());
     }
 
-    public Definition getDefinitionByTraditionalPrefix(String prefix) {
-        // TODO: Implement me
-        return null;
+    public List<Definition> getDefinitionsByEnglishEquivalent(String english) {
+        return this.definitions.parallelStream()
+                .filter(definition -> {
+                    for (String englishEquivalent : definition.getEnglishEquivalents()) {
+                        if (englishEquivalent.equalsIgnoreCase(english)) return true;
+                    }
+                    return false;
+                })
+                .collect(Collectors.toList());
     }
 
 }

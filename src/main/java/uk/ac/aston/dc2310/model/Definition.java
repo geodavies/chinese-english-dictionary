@@ -1,6 +1,6 @@
 package uk.ac.aston.dc2310.model;
 
-import java.util.Set;
+import java.util.List;
 
 /**
  * @author George Davies
@@ -12,12 +12,15 @@ public class Definition {
 
     private String simplifiedChinese;
 
-    private Set<String> englishTranslations;
+    private String pinYin;
 
-    public Definition(String traditionalChinese, String simplifiedChinese, Set<String> englishTranslations) {
+    private List<String> englishEquivalents;
+
+    public Definition(String traditionalChinese, String simplifiedChinese, String pinYin, List<String> englishEquivalents) {
         this.traditionalChinese = traditionalChinese;
         this.simplifiedChinese = simplifiedChinese;
-        this.englishTranslations = englishTranslations;
+        this.pinYin = pinYin;
+        this.englishEquivalents = englishEquivalents;
     }
 
     public String getTraditionalChinese() {
@@ -28,8 +31,11 @@ public class Definition {
         return simplifiedChinese;
     }
 
-    public Set<String> getEnglishTranslations() {
-        return englishTranslations;
+    public String getPinYin() {
+        return pinYin;
     }
 
+    public List<String> getEnglishEquivalents() {
+        return englishEquivalents;
+    }
 }
