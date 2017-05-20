@@ -21,19 +21,19 @@ public class Definitions {
     }
 
     public List<Definition> getDefinitionsByTraditionalPrefix(String prefix) {
-        return this.definitions.parallelStream()
+        return this.definitions.stream()
                 .filter(definition -> definition.getTraditionalChinese().startsWith(prefix))
                 .collect(Collectors.toList());
     }
 
     public List<Definition> getDefinitionsByPinYin(String pinYin) {
-        return this.definitions.parallelStream()
+        return this.definitions.stream()
                 .filter(definition -> definition.getPinYin().equalsIgnoreCase(pinYin))
                 .collect(Collectors.toList());
     }
 
     public List<Definition> getDefinitionsByEnglishEquivalent(String english) {
-        return this.definitions.parallelStream()
+        return this.definitions.stream()
                 .filter(definition -> {
                     for (String englishEquivalent : definition.getEnglishEquivalents()) {
                         if (englishEquivalent.equalsIgnoreCase(english)) return true;
