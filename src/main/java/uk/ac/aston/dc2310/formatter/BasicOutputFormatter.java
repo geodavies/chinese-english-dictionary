@@ -18,11 +18,13 @@ public class BasicOutputFormatter implements OutputFormatter {
             System.out.println("Traditional Chinese: " + definition.getTraditionalChinese());
             System.out.println("Simplified Chinese: " + definition.getSimplifiedChinese());
             System.out.println("PinYin: " + definition.getPinYin());
+
             List<String> englishEquivalents = definition.getEnglishEquivalents();
             System.out.println("--- English Equivalents ---");
             for (String englishEquivalent : englishEquivalents) {
                 System.out.println(englishEquivalent);
             }
+            System.out.println();
         }
     }
 

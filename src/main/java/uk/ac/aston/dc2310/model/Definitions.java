@@ -20,6 +20,12 @@ public class Definitions {
         definitions.add(definition);
     }
 
+    public List<Definition> getDefinitionsByTraditionalOrSimplified(String chinese) {
+        return this.definitions.stream()
+                .filter(definition -> definition.getTraditionalChinese().equals(chinese) || definition.getSimplifiedChinese().equals(chinese))
+                .collect(Collectors.toList());
+    }
+
     public List<Definition> getDefinitionsByTraditionalPrefix(String prefix) {
         return this.definitions.stream()
                 .filter(definition -> definition.getTraditionalChinese().startsWith(prefix))
