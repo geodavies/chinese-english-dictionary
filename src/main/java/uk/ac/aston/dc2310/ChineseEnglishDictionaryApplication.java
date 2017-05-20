@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class ChineseEnglishDictionaryApplication {
 
     public static void main(String[] args) {
-        System.out.println("Starting Chinese English Dictionary Application");
+        System.out.println("\nDC2310 Chinese English Translator\n");
 
         String dictionaryFilePath;
         if (args.length == 1) {
@@ -25,8 +25,19 @@ public class ChineseEnglishDictionaryApplication {
         }
         Definitions definitions = getDictionaryDefinitions(dictionaryFilePath);
 
-        ApplicationController applicationController = new ApplicationController();
-        applicationController.start(new BasicOutputFormatter(), definitions);
+        printUsageInstructions();
+
+        ApplicationController applicationController = new ApplicationController(definitions, new BasicOutputFormatter());
+        applicationController.start();
+    }
+
+    private static void printUsageInstructions() {
+        System.out.println("This translator has four operating modes");
+        System.out.println("Chinese : Enter a Chinese word in either traditional or simplified characters eg. '競秀'");
+        System.out.println("PinYin  : Enter the PinYin eg. 'jing4 xiu4'");
+        System.out.println("English : Enter an english word or phrase eg. 'beauty contest'");
+        System.out.println("Prefix  : Enter the prefix in traditional characters eg. '競'");
+        System.out.println("\nTo select or change the mode type 'mode' followed by your selected mode eg. 'mode english'\n");
     }
 
     private static String getDictionaryFilePath() {
@@ -34,7 +45,7 @@ public class ChineseEnglishDictionaryApplication {
 
         Scanner reader = new Scanner(System.in);
         System.out.print(">");
-        return reader.next();
+        return reader.nextLine();
     }
 
     private static Definitions getDictionaryDefinitions(String dictionaryFilePath) {
