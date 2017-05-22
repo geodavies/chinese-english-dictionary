@@ -4,6 +4,7 @@ import uk.ac.aston.dc2310.formatter.OutputFormatter;
 import uk.ac.aston.dc2310.model.Definition;
 import uk.ac.aston.dc2310.model.Definitions;
 import uk.ac.aston.dc2310.model.OperatingMode;
+import uk.ac.aston.dc2310.util.SummaryStatistics;
 
 import java.util.List;
 import java.util.Scanner;
@@ -19,7 +20,7 @@ public class ApplicationController {
     private Definitions definitions;
     private OutputFormatter outputFormatter;
 
-    private OperatingMode currentOperatingMode = null;
+    private OperatingMode currentOperatingMode = OperatingMode.chinese;
 
     public ApplicationController(Definitions definitions, OutputFormatter outputFormatter) {
         this.definitions = definitions;
@@ -27,24 +28,15 @@ public class ApplicationController {
     }
 
     public void start() {
-        Pattern commandPattern = Pattern.compile("^mode (.+)$");
-
         while (true) {
             String userInput = getUserInput();
-            Matcher commandMatcher = commandPattern.matcher(userInput);
-            if (commandMatcher.matches()) {
-                String selectedMode = commandMatcher.group(1);
-                try {
-                    currentOperatingMode = OperatingMode.valueOf(selectedMode.toLowerCase());
-                    System.out.println("Operating mode set to " + currentOperatingMode.toString());
-                } catch (IllegalArgumentException e) {
-                    System.out.println("Mode invalid!");
-                }
+            if (userInput.startsWith("/")) {
+                handleCommand(userInput);
             } else {
                 if (currentOperatingMode == null) {
                     System.out.println("Please select an operating mode first");
                 } else {
-                    handleUserSearchQuery(userInput);
+                    handleSearchQuery(userInput);
                 }
             }
         }
@@ -56,7 +48,32 @@ public class ApplicationController {
         return reader.nextLine();
     }
 
-    private void handleUserSearchQuery(String userInput) {
+    private void handleCommand(String userInput) {
+        Pattern commandPattern = Pattern.compile("(?i)^/(mode|stats|quit)( (chinese|pinyin|english|prefix))?$");
+        Matcher commandMatcher = commandPattern.matcher(userInput);
+
+        if (commandMatcher.matches()) {
+            String command = commandMatcher.group(1);
+            if (command.equalsIgnoreCase("mode")) {
+                String selectedMode = commandMatcher.group(3);
+                try {
+                    currentOperatingMode = OperatingMode.valueOf(selectedMode.toLowerCase());
+                    System.out.println("Operating mode set to " + currentOperatingMode.toString());
+                } catch (IllegalArgumentException e) {
+                    System.out.println("Invalid mode!");
+                }
+            } else if (command.equalsIgnoreCase("stats")) {
+                SummaryStatistics.printSummaryStatistics(definitions, outputFormatter);
+            } else if (command.equalsIgnoreCase("quit")) {
+                System.out.println("Exiting Application");
+                System.exit(0);
+            }
+        } else {
+            System.out.println("Invalid command!");
+        }
+    }
+
+    private void handleSearchQuery(String userInput) {
         switch (currentOperatingMode) {
             case chinese: {
                 List<Definition> definitionResults = definitions.getDefinitionsByTraditionalOrSimplified(userInput);
@@ -96,5 +113,4 @@ public class ApplicationController {
             }
         }
     }
-
 }
