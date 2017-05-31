@@ -47,9 +47,15 @@ public class Definition {
         stringBuilder.append("\nSimplified Chinese  : ").append(simplifiedChinese);
         stringBuilder.append("\nPinYin              : ").append(pinYin);
 
-        stringBuilder.append("\n--- English Equivalents ---");
+        stringBuilder.append("\nEnglish Equivalents : ");
+        boolean first = true;
         for (String englishEquivalent : englishEquivalents) {
-            stringBuilder.append("\n").append(englishEquivalent);
+            if (first) {
+                stringBuilder.append(englishEquivalent);
+                first = false;
+            } else {
+                stringBuilder.append("\n                      " + englishEquivalent);
+            }
         }
 
         return stringBuilder.toString();
