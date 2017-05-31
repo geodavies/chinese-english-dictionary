@@ -38,4 +38,20 @@ public class Definition {
     public List<String> getEnglishEquivalents() {
         return englishEquivalents;
     }
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("=== Definition ===");
+        stringBuilder.append("\nTraditional Chinese : ").append(traditionalChinese);
+        stringBuilder.append("\nSimplified Chinese  : ").append(simplifiedChinese);
+        stringBuilder.append("\nPinYin              : ").append(pinYin);
+
+        stringBuilder.append("\n--- English Equivalents ---");
+        for (String englishEquivalent : englishEquivalents) {
+            stringBuilder.append("\n").append(englishEquivalent);
+        }
+
+        return stringBuilder.toString();
+    }
 }

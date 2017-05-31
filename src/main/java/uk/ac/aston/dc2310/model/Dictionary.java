@@ -8,11 +8,11 @@ import java.util.stream.Collectors;
  * @author George Davies
  * @since 19/05/17.
  */
-public class Definitions {
+public class Dictionary {
 
     private List<Definition> definitions;
 
-    public Definitions() {
+    public Dictionary() {
         definitions = new ArrayList<>();
     }
 

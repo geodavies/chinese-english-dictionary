@@ -1,7 +1,7 @@
 package uk.ac.aston.dc2310.util;
 
 import uk.ac.aston.dc2310.model.Definition;
-import uk.ac.aston.dc2310.model.Definitions;
+import uk.ac.aston.dc2310.model.Dictionary;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,15 +18,15 @@ import java.util.regex.Pattern;
  */
 public class DictionaryParser {
 
-    public static Definitions parseDictionaryFile(String filePath) throws IOException {
-        Definitions definitions = new Definitions();
+    public static Dictionary parseDictionaryFile(String filePath) throws IOException {
+        Dictionary dictionary = new Dictionary();
 
         Files.lines(Paths.get(filePath))
                 .map(dictionaryLineToDefinition)
                 .filter(Objects::nonNull)
-                .forEach(definitions::addDefinition);
+                .forEach(dictionary::addDefinition);
 
-        return definitions;
+        return dictionary;
     }
 
     private static Function<String, Definition> dictionaryLineToDefinition = line -> {
@@ -36,9 +36,9 @@ public class DictionaryParser {
         if (matcher.matches()) {
             String[] englishEquivalents = matcher.group(4).split("/");
             return new Definition(matcher.group(1), matcher.group(2), matcher.group(3), Arrays.asList(englishEquivalents));
+        } else {
+            return null;
         }
-
-        return null;
     };
 
 }

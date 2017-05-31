@@ -1,8 +1,7 @@
 package uk.ac.aston.dc2310.util;
 
-import uk.ac.aston.dc2310.formatter.OutputFormatter;
 import uk.ac.aston.dc2310.model.Definition;
-import uk.ac.aston.dc2310.model.Definitions;
+import uk.ac.aston.dc2310.model.Dictionary;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -15,16 +14,23 @@ import java.util.Set;
  */
 public class SummaryStatistics {
 
-    public static void printSummaryStatistics(Definitions definitions, OutputFormatter outputFormatter) {
-        List<Definition> definitionsAsList = definitions.getDefinitionsAsList();
+    public static String getSummaryStatistics(Dictionary dictionary) {
+        List<Definition> definitionsAsList = dictionary.getDefinitionsAsList();
 
         long uniqueTraditionalCharacters = countUniqueTraditionalCharacters(definitionsAsList);
         long uniqueSimplifiedCharacters = countUniqueSimplifiedCharacters(definitionsAsList);
         long uniquePinYinTransliterations = countUniquePinYinTransliterations(definitionsAsList);
         long uniqueEnglishEquivalents = countUniqueEnglishEquivalents(definitionsAsList);
 
-        outputFormatter.printStatistics(uniqueTraditionalCharacters, uniqueSimplifiedCharacters,
-                uniquePinYinTransliterations, uniqueEnglishEquivalents);
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("\n=== Statistics ===");
+        stringBuilder.append("\nUnique traditional characters  : ").append(uniqueTraditionalCharacters);
+        stringBuilder.append("\nUnique simplified characters   : ").append(uniqueSimplifiedCharacters);
+        stringBuilder.append("\nUnique PinYin transliterations : ").append(uniquePinYinTransliterations);
+        stringBuilder.append("\nUnique English Equivalents     : ").append(uniqueEnglishEquivalents);
+
+        return stringBuilder.toString();
     }
 
     private static long countUniqueTraditionalCharacters(List<Definition> definitions) {
@@ -61,12 +67,12 @@ public class SummaryStatistics {
     }
 
     private static long countUniqueEnglishEquivalents(List<Definition> definitions) {
-        Set<String> allEnglishTransliterations = new HashSet<>();
+        Set<String> allEnglishEquivalents = new HashSet<>();
         for (Definition definition : definitions) {
-            allEnglishTransliterations.addAll(definition.getEnglishEquivalents());
+            allEnglishEquivalents.addAll(definition.getEnglishEquivalents());
         }
 
-        return allEnglishTransliterations.stream()
+        return allEnglishEquivalents.stream()
                 .distinct()
                 .count();
     }
