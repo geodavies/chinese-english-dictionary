@@ -21,6 +21,30 @@ public class DefinitionsTest {
     }
 
     @Test
+    public void getSingleDefinitionByTraditionalCharacters() {
+        List<Definition> returnedDefinitions = testDefinitions.getDefinitionsByTraditionalOrSimplified("選美");
+
+        assertEquals(1, returnedDefinitions.size());
+        assertEquals("選美", returnedDefinitions.get(0).getTraditionalChinese());
+        assertEquals("选美", returnedDefinitions.get(0).getSimplifiedChinese());
+        assertEquals("xuan3 mei3", returnedDefinitions.get(0).getPinYin());
+        assertEquals(Collections.singletonList("beauty contest"),
+                returnedDefinitions.get(0).getEnglishEquivalents());
+    }
+
+    @Test
+    public void getSingleDefinitionBySimplifiedCharacters() {
+        List<Definition> returnedDefinitions = testDefinitions.getDefinitionsByTraditionalOrSimplified("选美");
+
+        assertEquals(1, returnedDefinitions.size());
+        assertEquals("選美", returnedDefinitions.get(0).getTraditionalChinese());
+        assertEquals("选美", returnedDefinitions.get(0).getSimplifiedChinese());
+        assertEquals("xuan3 mei3", returnedDefinitions.get(0).getPinYin());
+        assertEquals(Collections.singletonList("beauty contest"),
+                returnedDefinitions.get(0).getEnglishEquivalents());
+    }
+
+    @Test
     public void getSingleDefinitionByPinYin() {
         List<Definition> returnedDefinitions = testDefinitions.getDefinitionsByPinYin("xiao1 hua4 mei2");
 

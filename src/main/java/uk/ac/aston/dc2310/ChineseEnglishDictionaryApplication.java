@@ -32,12 +32,18 @@ public class ChineseEnglishDictionaryApplication {
     }
 
     private static void printUsageInstructions() {
-        System.out.println("This translator has four operating modes");
-        System.out.println("Chinese : Enter a Chinese word in either traditional or simplified characters eg. '競秀'");
-        System.out.println("PinYin  : Enter the PinYin eg. 'jing4 xiu4'");
-        System.out.println("English : Enter an english word or phrase eg. 'beauty contest'");
-        System.out.println("Prefix  : Enter the prefix in traditional characters eg. '競'");
-        System.out.println("\nTo select or change the mode type 'mode' followed by your selected mode eg. 'mode english'\n");
+        System.out.println("Modes:");
+        System.out.println("Chinese      : Enter a Chinese word in either traditional or simplified characters eg. '競秀'");
+        System.out.println("PinYin       : Enter the PinYin eg. 'jing4 xiu4'");
+        System.out.println("English      : Enter an english word or phrase eg. 'beauty contest'");
+        System.out.println("Prefix       : Enter the prefix in traditional characters eg. '競'");
+
+        System.out.println("\nCommands:");
+        System.out.println("/mode [mode] : Set the current translation mode of the application");
+        System.out.println("/stats       : Shows interesting statistics about the dictionary");
+        System.out.println("/quit        : Shows interesting statistics about the dictionary");
+
+        System.out.println();
     }
 
     private static String getDictionaryFilePath() {

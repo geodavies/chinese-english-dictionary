@@ -49,4 +49,8 @@ public class Definitions {
                 .collect(Collectors.toList());
     }
 
+    public List<Definition> getDefinitionsAsList() {
+        return definitions;
+    }
+
 }

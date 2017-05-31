@@ -12,4 +12,6 @@ public interface OutputFormatter {
 
     void printDefinitions(List<Definition> definitions);
 
+    void printStatistics(long uniqueTraditional, long uniqueSimplified, long uniquePinYin, long uniqueEnglish);
+
 }
