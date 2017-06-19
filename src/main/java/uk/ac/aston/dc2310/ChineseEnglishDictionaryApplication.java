@@ -25,6 +25,7 @@ public class ChineseEnglishDictionaryApplication {
             dictionaryFilePath = getDictionaryFilePath();
         }
         Dictionary dictionary = getDictionaryDefinitions(dictionaryFilePath);
+        dictionary.index();
 
         CEDictController cEDictController = new DefaultCEDictController(dictionary);
         CEDictUI cEDictUI = new CEDictUI(cEDictController);
