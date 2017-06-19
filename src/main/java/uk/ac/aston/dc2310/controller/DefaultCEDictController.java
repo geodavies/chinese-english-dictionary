@@ -4,6 +4,7 @@ import uk.ac.aston.dc2310.model.Definition;
 import uk.ac.aston.dc2310.model.Dictionary;
 import uk.ac.aston.dc2310.util.SummaryStatistics;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -25,11 +26,11 @@ public class DefaultCEDictController implements CEDictController {
 
     @Override
     public String lookupChinese(String chineseWord) {
-        List<Definition> queryResults = dictionary.getDefinitionsByTraditionalOrSimplified(chineseWord);
-        if (queryResults.isEmpty()) {
+        Definition queryResult = dictionary.getDefinitionByTraditionalOrSimplified(chineseWord);
+        if (queryResult == null) {
             return "\nNo results found for Chinese query";
         } else {
-            return formatDefinitionsToString(queryResults);
+            return formatDefinitionsToString(Collections.singletonList(queryResult));
         }
     }
 

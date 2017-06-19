@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.*;
 
 import static junit.framework.TestCase.assertEquals;
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * @author George Davies
@@ -22,26 +23,24 @@ public class DictionaryTest {
 
     @Test
     public void getSingleDefinitionByTraditionalCharacters() {
-        List<Definition> returnedDefinitions = testDictionary.getDefinitionsByTraditionalOrSimplified("選美");
+        Definition returnedDefinition = testDictionary.getDefinitionByTraditionalOrSimplified("選美");
 
-        assertEquals(1, returnedDefinitions.size());
-        assertEquals("選美", returnedDefinitions.get(0).getTraditionalChinese());
-        assertEquals("选美", returnedDefinitions.get(0).getSimplifiedChinese());
-        assertEquals("xuan3 mei3", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Collections.singletonList("beauty contest"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertNotNull(returnedDefinition);
+        assertEquals("選美", returnedDefinition.getTraditionalChinese());
+        assertEquals("选美", returnedDefinition.getSimplifiedChinese());
+        assertEquals("xuan3 mei3", returnedDefinition.getPinYin());
+        assertEquals(Collections.singletonList("beauty contest"), returnedDefinition.getEnglishEquivalents());
     }
 
     @Test
     public void getSingleDefinitionBySimplifiedCharacters() {
-        List<Definition> returnedDefinitions = testDictionary.getDefinitionsByTraditionalOrSimplified("选美");
+        Definition returnedDefinition = testDictionary.getDefinitionByTraditionalOrSimplified("选美");
 
-        assertEquals(1, returnedDefinitions.size());
-        assertEquals("選美", returnedDefinitions.get(0).getTraditionalChinese());
-        assertEquals("选美", returnedDefinitions.get(0).getSimplifiedChinese());
-        assertEquals("xuan3 mei3", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Collections.singletonList("beauty contest"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertNotNull(returnedDefinition);
+        assertEquals("選美", returnedDefinition.getTraditionalChinese());
+        assertEquals("选美", returnedDefinition.getSimplifiedChinese());
+        assertEquals("xuan3 mei3", returnedDefinition.getPinYin());
+        assertEquals(Collections.singletonList("beauty contest"), returnedDefinition.getEnglishEquivalents());
     }
 
     @Test
@@ -52,8 +51,7 @@ public class DictionaryTest {
         assertEquals("消化酶", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("消化酶", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("xiao1 hua4 mei2", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Collections.singletonList("digestive enzyme"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("digestive enzyme"), returnedDefinitions.get(0).getEnglishEquivalents());
     }
 
     @Test
@@ -64,13 +62,11 @@ public class DictionaryTest {
         assertEquals("一世", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("一世", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("yi1 shi4", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Arrays.asList("generation", "period of 30 years", "one's whole lifetime", "lifelong", "age", "era", "times", "the whole world", "the First (of numbered European kings)"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertEquals(Arrays.asList("generation", "period of 30 years", "one's whole lifetime", "lifelong", "age", "era", "times", "the whole world", "the First (of numbered European kings)"), returnedDefinitions.get(0).getEnglishEquivalents());
         assertEquals("衣飾", returnedDefinitions.get(1).getTraditionalChinese());
         assertEquals("衣饰", returnedDefinitions.get(1).getSimplifiedChinese());
         assertEquals("yi1 shi4", returnedDefinitions.get(1).getPinYin());
-        assertEquals(Collections.singletonList("clothes and ornaments"),
-                returnedDefinitions.get(1).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("clothes and ornaments"), returnedDefinitions.get(1).getEnglishEquivalents());
     }
 
     @Test
@@ -81,8 +77,7 @@ public class DictionaryTest {
         assertEquals("杳然", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("杳然", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("yao3 ran2", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Arrays.asList("quiet, silent, and lonely", "far and indistinct", "gone without a trace"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertEquals(Arrays.asList("quiet, silent, and lonely", "far and indistinct", "gone without a trace"), returnedDefinitions.get(0).getEnglishEquivalents());
     }
 
     @Test
@@ -90,31 +85,31 @@ public class DictionaryTest {
         List<Definition> returnedDefinitions = testDictionary.getDefinitionsByTraditionalPrefix("捷克");
 
         assertEquals(5, returnedDefinitions.size());
+
         assertEquals("捷克", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("捷克", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("Jie2 ke4", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Arrays.asList("Czech", "Czech Republic (from 1993)", "Czechia"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
-        assertEquals("捷克人", returnedDefinitions.get(1).getTraditionalChinese());
-        assertEquals("捷克人", returnedDefinitions.get(1).getSimplifiedChinese());
+        assertEquals(Arrays.asList("Czech", "Czech Republic (from 1993)", "Czechia"), returnedDefinitions.get(0).getEnglishEquivalents());
+
+        assertEquals("捷克共和國", returnedDefinitions.get(1).getTraditionalChinese());
+        assertEquals("捷克共和国", returnedDefinitions.get(1).getSimplifiedChinese());
         assertEquals("Jie2 ke4 ren2", returnedDefinitions.get(1).getPinYin());
-        assertEquals(Collections.singletonList("Czech person"),
-                returnedDefinitions.get(1).getEnglishEquivalents());
-        assertEquals("捷克共和國", returnedDefinitions.get(2).getTraditionalChinese());
-        assertEquals("捷克共和国", returnedDefinitions.get(2).getSimplifiedChinese());
+        assertEquals(Collections.singletonList("Czech Republic"), returnedDefinitions.get(1).getEnglishEquivalents());
+
+        assertEquals("捷克人", returnedDefinitions.get(2).getTraditionalChinese());
+        assertEquals("捷克人", returnedDefinitions.get(2).getSimplifiedChinese());
         assertEquals("Jie2 ke4 ren2", returnedDefinitions.get(2).getPinYin());
-        assertEquals(Collections.singletonList("Czech Republic"),
-                returnedDefinitions.get(2).getEnglishEquivalents());
-        assertEquals("捷克斯洛伐克", returnedDefinitions.get(3).getTraditionalChinese());
-        assertEquals("捷克斯洛伐克", returnedDefinitions.get(3).getSimplifiedChinese());
-        assertEquals("Jie2 ke4 Si1 luo4 fa2 ke4", returnedDefinitions.get(3).getPinYin());
-        assertEquals(Collections.singletonList("Republic of Czechoslovakia (1918-1992)"),
-                returnedDefinitions.get(3).getEnglishEquivalents());
-        assertEquals("捷克語", returnedDefinitions.get(4).getTraditionalChinese());
-        assertEquals("捷克语", returnedDefinitions.get(4).getSimplifiedChinese());
-        assertEquals("Jie2 ke4 yu3", returnedDefinitions.get(4).getPinYin());
-        assertEquals(Collections.singletonList("Czech (language)"),
-                returnedDefinitions.get(4).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("Czech person"), returnedDefinitions.get(2).getEnglishEquivalents());
+
+        assertEquals("捷克語", returnedDefinitions.get(3).getTraditionalChinese());
+        assertEquals("捷克语", returnedDefinitions.get(3).getSimplifiedChinese());
+        assertEquals("Jie2 ke4 yu3", returnedDefinitions.get(3).getPinYin());
+        assertEquals(Collections.singletonList("Czech (language)"), returnedDefinitions.get(3).getEnglishEquivalents());
+
+        assertEquals("捷克斯洛伐克", returnedDefinitions.get(4).getTraditionalChinese());
+        assertEquals("捷克斯洛伐克", returnedDefinitions.get(4).getSimplifiedChinese());
+        assertEquals("Jie2 ke4 Si1 luo4 fa2 ke4", returnedDefinitions.get(4).getPinYin());
+        assertEquals(Collections.singletonList("Republic of Czechoslovakia (1918-1992)"), returnedDefinitions.get(4).getEnglishEquivalents());
     }
 
     @Test
@@ -125,8 +120,7 @@ public class DictionaryTest {
         assertEquals("衣料", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("衣料", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("yi1 liao4", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Collections.singletonList("material for clothing"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("material for clothing"), returnedDefinitions.get(0).getEnglishEquivalents());
     }
 
     @Test
@@ -137,23 +131,22 @@ public class DictionaryTest {
         assertEquals("競秀", returnedDefinitions.get(0).getTraditionalChinese());
         assertEquals("竞秀", returnedDefinitions.get(0).getSimplifiedChinese());
         assertEquals("jing4 xiu4", returnedDefinitions.get(0).getPinYin());
-        assertEquals(Arrays.asList("beauty contest", "vying to be the most beautiful"),
-                returnedDefinitions.get(0).getEnglishEquivalents());
+        assertEquals(Arrays.asList("beauty contest", "vying to be the most beautiful"), returnedDefinitions.get(0).getEnglishEquivalents());
+
         assertEquals("競艷", returnedDefinitions.get(1).getTraditionalChinese());
         assertEquals("竞艳", returnedDefinitions.get(1).getSimplifiedChinese());
         assertEquals("jing4 yan4", returnedDefinitions.get(1).getPinYin());
-        assertEquals(Arrays.asList("vying to be the most glamorous", "each more gorgeous than the other", "beauty contest"),
-                returnedDefinitions.get(1).getEnglishEquivalents());
+        assertEquals(Arrays.asList("vying to be the most glamorous", "each more gorgeous than the other", "beauty contest"), returnedDefinitions.get(1).getEnglishEquivalents());
+
         assertEquals("選美", returnedDefinitions.get(2).getTraditionalChinese());
         assertEquals("选美", returnedDefinitions.get(2).getSimplifiedChinese());
         assertEquals("xuan3 mei3", returnedDefinitions.get(2).getPinYin());
-        assertEquals(Collections.singletonList("beauty contest"),
-                returnedDefinitions.get(2).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("beauty contest"), returnedDefinitions.get(2).getEnglishEquivalents());
+
         assertEquals("選美比賽", returnedDefinitions.get(3).getTraditionalChinese());
         assertEquals("选美比赛", returnedDefinitions.get(3).getSimplifiedChinese());
         assertEquals("xuan3 mei3 bi3 sai4", returnedDefinitions.get(3).getPinYin());
-        assertEquals(Collections.singletonList("beauty contest"),
-                returnedDefinitions.get(3).getEnglishEquivalents());
+        assertEquals(Collections.singletonList("beauty contest"), returnedDefinitions.get(3).getEnglishEquivalents());
     }
 
     private Dictionary createPopulatedTestDefinitions() {
@@ -187,6 +180,8 @@ public class DictionaryTest {
                 new ArrayList<>(Collections.singletonList("beauty contest"))));
         dictionary.addDefinition(new Definition("選美比賽", "选美比赛", "xuan3 mei3 bi3 sai4",
                 new ArrayList<>(Collections.singletonList("beauty contest"))));
+
+        dictionary.index();
 
         return dictionary;
     }
