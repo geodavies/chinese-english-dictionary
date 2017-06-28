@@ -100,4 +100,8 @@ public class Dictionary {
         return definitions;
     }
 
+    public Trie getPrefixIndex() {
+        return prefixIndex;
+    }
+
 }

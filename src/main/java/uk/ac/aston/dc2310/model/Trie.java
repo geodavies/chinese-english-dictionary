@@ -10,7 +10,10 @@ import java.util.Map;
  * @since 18/06/17.
  */
 public class Trie {
+
     private TrieNode root;
+
+    private long prefixCount;
 
     public Trie() {
         root = new TrieNode();
@@ -74,6 +77,19 @@ public class Trie {
                 getPathsRecursively(subNode, path, pathLen, outputPaths);
             }
         }
+    }
+
+    public void getPrefixCountRecusively(TrieNode node) {
+        if (node.getChildren().size() > 0) {
+            prefixCount++;
+        }
+        for (TrieNode subNode : node.getChildren().values()) {
+            getPrefixCountRecusively(subNode);
+        }
+    }
+
+    public TrieNode getRoot() {
+        return root;
     }
 
 }

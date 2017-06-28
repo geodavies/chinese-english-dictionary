@@ -1,6 +1,5 @@
 package uk.ac.aston.dc2310;
 
-import uk.ac.aston.dc2310.controller.CEDictController;
 import uk.ac.aston.dc2310.controller.DefaultCEDictController;
 import uk.ac.aston.dc2310.model.Dictionary;
 import uk.ac.aston.dc2310.util.DictionaryParser;
@@ -27,8 +26,7 @@ public class ChineseEnglishDictionaryApplication {
         Dictionary dictionary = getDictionaryDefinitions(dictionaryFilePath);
         dictionary.index();
 
-        CEDictController cEDictController = new DefaultCEDictController(dictionary);
-        CEDictUI cEDictUI = new CEDictUI(cEDictController);
+        CEDictUI cEDictUI = new CEDictUI(new DefaultCEDictController(dictionary));
     }
 
     private static String getDictionaryFilePath() {
