@@ -9,61 +9,52 @@ import java.util.Map;
  * @author George Davies
  * @since 18/06/17.
  */
-public class Trie {
+class Trie {
 
-    private TrieNode root;
+    private Node root;
 
-    private long prefixCount;
-
-    public Trie() {
-        root = new TrieNode();
+    Trie() {
+        root = new Node();
     }
 
-    public void add(String word) {
-        HashMap<Character, TrieNode> children = root.getChildren();
+    void add(String word) {
+        HashMap<Character, Node> children = root.getChildren();
 
-        for(int i = 0; i < word.length(); i++){
-            char c = word.charAt(i);
-
-            TrieNode trieNode;
-            if(children.containsKey(c)){
-                trieNode = children.get(c);
-            }else{
-                trieNode = new TrieNode(c);
-                children.put(c, trieNode);
+        for (char c : word.toCharArray()) { // For each character in the word
+            Node node;
+            if (children.containsKey(c)) { // Char under the root: Select node
+                node = children.get(c);
+            } else { // Char not under root: Add new node
+                node = new Node(c);
+                children.put(c, node);
             }
 
-            children = trieNode.getChildren();
+            children = node.getChildren();
         }
     }
 
-    public TrieNode getPrefixNode (String prefix) {
-        Map<Character, TrieNode> children = root.getChildren();
-
-        TrieNode trieNode = null;
-        for(int i = 0; i < prefix.length(); i++) {
-            char c = prefix.charAt(i);
+    Node getPrefixNode(String prefix) {
+        Map<Character, Node> children = root.getChildren();
+        Node node = null;
+        for (char c : prefix.toCharArray()) {
             if (children.containsKey(c)) {
-                trieNode = children.get(c);
-                children = trieNode.getChildren();
+                node = children.get(c);
+                children = node.getChildren();
             } else {
                 return null;
             }
         }
-
-        return trieNode;
+        return node;
     }
 
-    public List<String> getAllPathsForNode(TrieNode node) {
+    List<String> getAllPathsForNode(Node node) {
         List<String> paths = new ArrayList<>();
         char path[] = new char[20];
-
         getPathsRecursively(node, path, 0, paths);
-
         return paths;
     }
 
-    private void getPathsRecursively (TrieNode node, char path[], int pathLen, List<String> outputPaths) {
+    private void getPathsRecursively(Node node, char path[], int pathLen, List<String> outputPaths) {
         // Add current node to path
         path[pathLen] = node.getValue();
         pathLen++;
@@ -73,23 +64,10 @@ public class Trie {
             outputPaths.add(String.valueOf(path).trim().substring(1, pathLen));
         } else {
             // Not a leaf so keep going
-            for (TrieNode subNode : node.getChildren().values()) {
+            for (Node subNode : node.getChildren().values()) {
                 getPathsRecursively(subNode, path, pathLen, outputPaths);
             }
         }
-    }
-
-    public void getPrefixCountRecusively(TrieNode node) {
-        if (node.getChildren().size() > 0) {
-            prefixCount++;
-        }
-        for (TrieNode subNode : node.getChildren().values()) {
-            getPrefixCountRecusively(subNode);
-        }
-    }
-
-    public TrieNode getRoot() {
-        return root;
     }
 
 }

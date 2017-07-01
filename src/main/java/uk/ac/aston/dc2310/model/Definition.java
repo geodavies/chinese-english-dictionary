@@ -54,7 +54,7 @@ public class Definition {
                 stringBuilder.append(englishEquivalent);
                 first = false;
             } else {
-                stringBuilder.append("\n                      " + englishEquivalent);
+                stringBuilder.append("\n                      ").append(englishEquivalent);
             }
         }
 

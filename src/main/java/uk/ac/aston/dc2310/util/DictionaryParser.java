@@ -30,7 +30,7 @@ public class DictionaryParser {
     }
 
     private static Function<String, Definition> dictionaryLineToDefinition = line -> {
-        Pattern linePattern = Pattern.compile("^(.+) (.+) \\[(.+)\\] \\/(.+)\\/$");
+        Pattern linePattern = Pattern.compile("^(.+) (.+) \\[(.+)] /(.+)/$");
         Matcher matcher = linePattern.matcher(line);
 
         if (matcher.matches()) {

@@ -6,7 +6,6 @@ import uk.ac.aston.dc2310.util.DictionaryParser;
 import uk.ac.aston.dc2310.view.CEDictUI;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * @author George Davies
@@ -14,37 +13,13 @@ import java.util.Scanner;
  */
 public class ChineseEnglishDictionaryApplication {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         System.out.println("\nDC2310 Chinese English Dictionary\n");
 
-        String dictionaryFilePath;
-        if (args.length == 1) {
-            dictionaryFilePath = args[0];
-        } else {
-            dictionaryFilePath = getDictionaryFilePath();
-        }
-        Dictionary dictionary = getDictionaryDefinitions(dictionaryFilePath);
+        Dictionary dictionary = DictionaryParser.parseDictionaryFile("src/main/resources/cedict_ts.u8");
         dictionary.index();
 
-        CEDictUI cEDictUI = new CEDictUI(new DefaultCEDictController(dictionary));
-    }
-
-    private static String getDictionaryFilePath() {
-        System.out.println("Please enter the dictionary file path:");
-        Scanner reader = new Scanner(System.in);
-        System.out.print(">");
-        return reader.nextLine();
-    }
-
-    private static Dictionary getDictionaryDefinitions(String dictionaryFilePath) {
-        while (true) {
-            try {
-                return DictionaryParser.parseDictionaryFile(dictionaryFilePath);
-            } catch (IOException e) {
-                System.out.println("Unable to read dictionary file from the given path");
-                dictionaryFilePath = getDictionaryFilePath();
-            }
-        }
+        new CEDictUI(new DefaultCEDictController(dictionary));
     }
 
 }

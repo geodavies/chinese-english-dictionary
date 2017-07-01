@@ -45,8 +45,8 @@ public class Dictionary {
         if (prefixDefinition == null) {
             return Collections.emptyList();
         } else {
-            TrieNode trieNode = prefixIndex.getPrefixNode(prefix);
-            List<String> paths = prefixIndex.getAllPathsForNode(trieNode);
+            Node node = prefixIndex.getPrefixNode(prefix);
+            List<String> paths = prefixIndex.getAllPathsForNode(node);
 
             List<Definition> prefixDefinitions = new ArrayList<>();
 
@@ -98,10 +98,6 @@ public class Dictionary {
 
     public List<Definition> getDefinitionsAsList() {
         return definitions;
-    }
-
-    public Trie getPrefixIndex() {
-        return prefixIndex;
     }
 
 }

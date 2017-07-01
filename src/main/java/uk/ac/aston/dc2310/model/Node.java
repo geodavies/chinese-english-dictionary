@@ -6,23 +6,23 @@ import java.util.HashMap;
  * @author George Davies
  * @since 18/06/17.
  */
-public class TrieNode {
+class Node {
 
     private char value;
 
-    private HashMap<Character, TrieNode> children = new HashMap<>();
+    private HashMap<Character, Node> children = new HashMap<>();
 
-    public TrieNode() {}
+    Node() {}
 
-    public TrieNode(char value){
+    Node(char value){
         this.value = value;
     }
 
-    public char getValue() {
+    char getValue() {
         return value;
     }
 
-    public HashMap<Character, TrieNode> getChildren() {
+    HashMap<Character, Node> getChildren() {
         return children;
     }
 
