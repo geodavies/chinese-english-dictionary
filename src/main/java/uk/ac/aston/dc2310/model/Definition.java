@@ -3,6 +3,14 @@ package uk.ac.aston.dc2310.model;
 import java.util.List;
 
 /**
+ * This class represents a Dictionary Definition (or entry) which has the following fields:
+ * - Traditional Chinese
+ * - Simplified Chinese
+ * - PinYin
+ * - English Equivalents
+ *
+ * It has a toString method which pretty prints its content.
+ *
  * @author George Davies
  * @since 19/05/17.
  */
@@ -39,6 +47,7 @@ public class Definition {
         return englishEquivalents;
     }
 
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -60,4 +69,5 @@ public class Definition {
 
         return stringBuilder.toString();
     }
+
 }

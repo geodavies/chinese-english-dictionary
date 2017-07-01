@@ -2,12 +2,12 @@ package uk.ac.aston.dc2310.controller;
 
 import uk.ac.aston.dc2310.model.Definition;
 import uk.ac.aston.dc2310.model.Dictionary;
-import uk.ac.aston.dc2310.util.SummaryStatistics;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Set;
 
 /**
+ * This class is an implementation of CEDictController which allows the user to interface with the application.
+ *
  * @author George Davies
  * @since 31/05/17
  */
@@ -21,22 +21,22 @@ public class DefaultCEDictController implements CEDictController {
 
     @Override
     public String summaryStatistics() {
-        return SummaryStatistics.getSummaryStatistics(dictionary);
+        return dictionary.getSummaryStatistics();
     }
 
     @Override
     public String lookupChinese(String chineseWord) {
-        Definition queryResult = dictionary.getDefinitionByTraditionalOrSimplified(chineseWord);
-        if (queryResult == null) {
+        Set<Definition> queryResults = dictionary.getDefinitionByTraditionalOrSimplified(chineseWord);
+        if (queryResults.isEmpty()) {
             return "\nNo results found for Chinese query";
         } else {
-            return formatDefinitionsToString(Collections.singletonList(queryResult));
+            return formatDefinitionsToString(queryResults);
         }
     }
 
     @Override
     public String lookupEnglish(String English) {
-        List<Definition> queryResults =  dictionary.getDefinitionsByEnglishEquivalent(English);
+        Set<Definition> queryResults = dictionary.getDefinitionsByEnglishEquivalent(English);
         if (queryResults.isEmpty()) {
             return "\nNo results found for English query";
         } else {
@@ -46,8 +46,9 @@ public class DefaultCEDictController implements CEDictController {
 
     @Override
     public String lookupPinyin(String pinyin) {
-        String strippedPinYin = pinyin.replaceAll("\\[", "").replaceAll("]", "");
-        List<Definition> queryResults =  dictionary.getDefinitionsByPinYin(strippedPinYin);
+        // Remove square brackets before querying dictionary
+        String strippedPinYin = pinyin.replaceAll("[\\[\\]]", "");
+        Set<Definition> queryResults = dictionary.getDefinitionsByPinYin(strippedPinYin);
         if (queryResults.isEmpty()) {
             return "\nNo results found for PinYin query";
         } else {
@@ -57,7 +58,7 @@ public class DefaultCEDictController implements CEDictController {
 
     @Override
     public String lookupChinesePrefix(String chinesePrefix) {
-        List<Definition> queryResults =  dictionary.getDefinitionsByTraditionalPrefix(chinesePrefix);
+        Set<Definition> queryResults = dictionary.getDefinitionsByTraditionalPrefix(chinesePrefix);
         if (queryResults.isEmpty()) {
             return "\nNo results found for Prefix query";
         } else {
@@ -65,7 +66,13 @@ public class DefaultCEDictController implements CEDictController {
         }
     }
 
-    private String formatDefinitionsToString(List<Definition> definitions) {
+    /**
+     * Takes a set of definitions and appends all of the toString results to a String with spaces in-between each.
+     *
+     * @param definitions the definitions to format
+     * @return the formatted String
+     */
+    private String formatDefinitionsToString(Set<Definition> definitions) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (Definition definition : definitions) {
