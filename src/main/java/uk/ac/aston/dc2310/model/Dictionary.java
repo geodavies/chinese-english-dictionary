@@ -17,15 +17,14 @@ public class Dictionary {
     private Map<String, Set<Definition>> simplifiedIndex;
     private Map<String, Set<Definition>> pinYinIndex;
     private Map<String, Set<Definition>> englishIndex;
-
-    private Trie prefixIndex;
+    private Map<String, Set<Definition>> prefixIndex;
 
     public Dictionary() {
         traditionalIndex = new HashMap<>();
         simplifiedIndex = new HashMap<>();
         pinYinIndex = new HashMap<>();
         englishIndex = new HashMap<>();
-        prefixIndex = new Trie();
+        prefixIndex = new HashMap<>();
     }
 
     /**
@@ -69,7 +68,14 @@ public class Dictionary {
         }
 
         // Index by prefix
-        prefixIndex.add(definition.getTraditionalChinese());
+        for (int i = 0; i < traditionalChinese.length(); i++) {
+            String prefix = traditionalChinese.substring(0, i + 1);
+            if (prefixIndex.containsKey(prefix)) { // Index already exists, add to existing
+                prefixIndex.get(prefix).add(definition);
+            } else { // No index exists, create a new one
+                prefixIndex.put(prefix, new LinkedHashSet<>(Collections.singletonList(definition)));
+            }
+        }
     }
 
     /**
@@ -130,19 +136,7 @@ public class Dictionary {
         if (prefixDefinition.size() == 0) {
             return Collections.emptySet();
         } else {
-            Node node = prefixIndex.getPrefixNode(prefix);
-            List<String> paths = prefixIndex.getAllPathsForNode(node);
-
-            Set<Definition> prefixDefinitions = new LinkedHashSet<>();
-
-            if (paths.size() > 1) {
-                prefixDefinitions.addAll(prefixDefinition);
-            }
-
-            for (String path : paths) {
-                prefixDefinitions.addAll(getDefinitionByTraditionalOrSimplified(prefix + path));
-            }
-            return prefixDefinitions;
+            return prefixIndex.get(prefix);
         }
     }
 
@@ -152,27 +146,27 @@ public class Dictionary {
      * @return formatted statistics String
      */
     public String getSummaryStatistics() {
-        long associatedPrefixesCount = 0;
 
+        long uniqueTraditionalWords = traditionalIndex.size();
+        long uniqueSimplifiedWords = simplifiedIndex.size();
+        long uniquePinYinTransliterations = pinYinIndex.size();
+        long uniqueEnglishEquivalents = englishIndex.size();
+        long potentialChinesePrefixes = traditionalIndex.size();
+
+        long associatedPrefixesCount = 0;
         // For each unique traditional word, count all words sharing the same prefix
         for (String traditional : traditionalIndex.keySet()) {
             Set<Definition> prefixDefinitions = getDefinitionsByTraditionalPrefix(traditional);
             associatedPrefixesCount += prefixDefinitions.size();
         }
 
-        long uniqueTraditionalWords = traditionalIndex.size();
-        long uniqueSimplifiedWords = simplifiedIndex.size();
-        long uniquePinYinTransliterations = pinYinIndex.size();
-        long uniqueEnglishEquivalents = englishIndex.size();
-
         return "\n=== Statistics ===" +
                 "\nTraditional words              : " + uniqueTraditionalWords +
                 "\nSimplified words               : " + uniqueSimplifiedWords +
                 "\nUnique PinYin transliterations : " + uniquePinYinTransliterations +
                 "\nUnique English Equivalents     : " + uniqueEnglishEquivalents +
-                "\nPotential Chinese prefixes     : " + uniqueTraditionalWords +
-                "\nWords associated to prefixes   : " + associatedPrefixesCount +
-                "\nActual prefixes                : " + uniqueEnglishEquivalents;
+                "\nPotential Chinese prefixes     : " + potentialChinesePrefixes +
+                "\nWords associated to prefixes   : " + associatedPrefixesCount;
     }
 
 }
