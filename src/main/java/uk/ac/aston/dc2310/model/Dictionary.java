@@ -151,7 +151,7 @@ public class Dictionary {
         long uniqueSimplifiedWords = simplifiedIndex.size();
         long uniquePinYinTransliterations = pinYinIndex.size();
         long uniqueEnglishEquivalents = englishIndex.size();
-        long potentialChinesePrefixes = traditionalIndex.size();
+        long potentialChinesePrefixes = prefixIndex.size();
 
         long associatedPrefixesCount = 0;
         // For each unique traditional word, count all words sharing the same prefix
