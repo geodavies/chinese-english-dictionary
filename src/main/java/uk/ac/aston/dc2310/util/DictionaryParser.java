@@ -33,7 +33,7 @@ public class DictionaryParser {
 
         Files.lines(Paths.get(filePath))
                 .map(dictionaryLineToDefinition) // Convert line to Definition
-                .filter(Objects::nonNull) // Remove if null
+                .filter(Objects::nonNull) // Remove if null (un-parsable line)
                 .forEach(dictionary::addDefinition); // Add to dictionary
 
         return dictionary;

@@ -17,11 +17,8 @@ import java.util.List;
 public class Definition {
 
     private String traditionalChinese;
-
     private String simplifiedChinese;
-
     private String pinYin;
-
     private List<String> englishEquivalents;
 
     public Definition(String traditionalChinese, String simplifiedChinese, String pinYin, List<String> englishEquivalents) {
